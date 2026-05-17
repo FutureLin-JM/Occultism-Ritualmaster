@@ -1,0 +1,14 @@
+{
+  "entity.occultism_ritualmaster.ritualmaster": "Ritualmaster",
+  "item.occultism_ritualmaster.ritual_dummy.summon_ritualmaster": "Ritual: Summon Ritualmaster",
+  "item.occultism_ritualmaster.ritual_dummy.summon_ritualmaster.tooltip": "The Ritualmaster automates ritual execution. Provide it with a §lSurprisingly Substantial Satchel§r containing the corresponding ritual Sealed Pentacle, and it will gather nearby suitable materials to perform the ritual on its own.",
+  "item.occultism_ritualmaster.sealed_pentacle": "Sealed Pentacle",
+  "item.occultism_ritualmaster.sealed_pentacle.empty": "Empty",
+  "item.occultism_ritualmaster.sealed_pentacle.sealed": "Pentacle Sealed",
+  "itemGroup.occultism_ritualmaster.tab": "Occultism: Ritualmaster",
+  "job.occultism_ritualmaster.ritualmaster": "Ritualmaster",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.conditions": "Not all requirements for this ritual are met.",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.finished": "Ritual completed successfully: Summon Ritualmaster.",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.interrupted": "Interruption in the ritual: Summon Ritualmaster.",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.started": "Starting the ritual: Summon Ritualmaster."
+}

@@ -1,0 +1,14 @@
+{
+  "entity.occultism_ritualmaster.ritualmaster": "仪式大师",
+  "item.occultism_ritualmaster.ritual_dummy.summon_ritualmaster": "仪式：召唤仪式大师",
+  "item.occultism_ritualmaster.ritual_dummy.summon_ritualmaster.tooltip": "仪式大师可自动执行仪式。为其提供装有对应仪式五芒星印的§l意外结实的挎包§r，它会拾取周围的材料，并会自行完成仪式。",
+  "item.occultism_ritualmaster.sealed_pentacle": "五芒星印",
+  "item.occultism_ritualmaster.sealed_pentacle.empty": "空",
+  "item.occultism_ritualmaster.sealed_pentacle.sealed": "五芒星阵已封印",
+  "itemGroup.occultism_ritualmaster.tab": "神秘学：仪式大师",
+  "job.occultism_ritualmaster.ritualmaster": "仪式大师",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.conditions": "该仪式的部分条件仍未满足。",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.finished": "仪式中断：召唤仪式大师.",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.interrupted": "开始进行仪式：召唤仪式大师.",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.started": "仪式成功完成：召唤仪式大师."
+}
