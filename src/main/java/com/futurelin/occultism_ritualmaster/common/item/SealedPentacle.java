@@ -121,5 +121,7 @@ public class SealedPentacle extends Item {
         } else {
             tooltip.add(Component.translatable(TranslationKeys.SEALED_PENTACLE_EMPTY).withStyle(ChatFormatting.GRAY));
         }
+
+        tooltip.add(Component.translatable(TranslationKeys.SEALED_PENTACLE_TOOLTIP));
     }
 }

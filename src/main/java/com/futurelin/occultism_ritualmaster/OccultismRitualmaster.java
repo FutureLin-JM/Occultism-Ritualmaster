@@ -1,12 +1,14 @@
 package com.futurelin.occultism_ritualmaster;
 
 import com.futurelin.occultism_ritualmaster.common.entity.RitualmasterEntity;
+import com.futurelin.occultism_ritualmaster.config.OrmConfig;
 import com.futurelin.occultism_ritualmaster.registry.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -22,6 +24,8 @@ public class OccultismRitualmaster {
      public OccultismRitualmaster(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
          modEventBus.addListener(this::onEntityAttributeCreation);
+
+         modContainer.registerConfig(ModConfig.Type.SERVER, OrmConfig.SERVER_SPEC);
 
          OrmDataComponentsRegistry.register(modEventBus);
          OrmEntitiesRegistry.register(modEventBus);

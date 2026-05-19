@@ -22,6 +22,7 @@ public class OrmENUSProvider extends OrmLangProvider {
 
         this.add(OrmItemsRegistry.SEALED_PENTACLE.get(), "Sealed Pentacle");
         this.add(TranslationKeys.SEALED_PENTACLE_EMPTY, "Empty");
+        this.add(TranslationKeys.SEALED_PENTACLE_TOOLTIP, "Right-Click a Golden Ritual Bowl to seal a formed pentacle within it.");
         this.add(TranslationKeys.SEALED_PENTACLE_SEALED, "Pentacle Sealed");
     }
 }

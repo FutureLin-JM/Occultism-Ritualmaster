@@ -5,6 +5,7 @@
   "item.occultism_ritualmaster.sealed_pentacle": "Sealed Pentacle",
   "item.occultism_ritualmaster.sealed_pentacle.empty": "Empty",
   "item.occultism_ritualmaster.sealed_pentacle.sealed": "Pentacle Sealed",
+  "item.occultism_ritualmaster.sealed_pentacle_tooltip": "Right-Click a Golden Ritual Bowl to seal a formed pentacle within it.",
   "itemGroup.occultism_ritualmaster.tab": "Occultism: Ritualmaster",
   "job.occultism_ritualmaster.ritualmaster": "Ritualmaster",
   "ritual.occultism_ritualmaster.summon_ritualmaster.conditions": "Not all requirements for this ritual are met.",

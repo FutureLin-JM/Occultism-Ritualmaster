@@ -24,6 +24,7 @@ public class OrmZHCNProvider extends OrmLangProvider {
 
         this.add(OrmItemsRegistry.SEALED_PENTACLE.get(), "五芒星印");
         this.add(TranslationKeys.SEALED_PENTACLE_EMPTY, "空");
+        this.add(TranslationKeys.SEALED_PENTACLE_TOOLTIP, "右击黄金仪式之碗，将成型的五芒星阵封印在其中。");
         this.add(TranslationKeys.SEALED_PENTACLE_SEALED, "五芒星阵已封印");
     }
 

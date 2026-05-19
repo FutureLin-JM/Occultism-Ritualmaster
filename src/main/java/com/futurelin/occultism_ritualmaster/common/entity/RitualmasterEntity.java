@@ -2,6 +2,7 @@ package com.futurelin.occultism_ritualmaster.common.entity;
 
 import com.futurelin.occultism_ritualmaster.OccultismRitualmaster;
 import com.futurelin.occultism_ritualmaster.api.item.RitualmasterItemStackHandler;
+import com.futurelin.occultism_ritualmaster.config.OrmConfig;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,12 +24,14 @@ public class RitualmasterEntity extends SpiritEntity implements GeoEntity {
 
     public static final String DROPPED_BY_RITUALMASTER = OccultismRitualmaster.MOD_ID + ":dropped_by_ritualmaster";
     public static final String DROPPED_RESULT = OccultismRitualmaster.MOD_ID + ":dropped_result";
-    public static final int INVENTORY_SIZE = 14;
+    public static int getInventorySize() {
+        return OrmConfig.SERVER.ritualmasterInventorySize.get() + 2;
+    }
 
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public RitualmasterEntity(EntityType<? extends SpiritEntity> type, Level level) {
-        super(type, level, new RitualmasterItemStackHandler(INVENTORY_SIZE, DROPPED_BY_RITUALMASTER));
+        super(type, level, new RitualmasterItemStackHandler(getInventorySize(), DROPPED_BY_RITUALMASTER));
         ((RitualmasterItemStackHandler) this.inventory).setEntity(this);
     }
 

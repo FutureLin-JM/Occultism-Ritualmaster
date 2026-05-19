@@ -5,6 +5,7 @@
   "item.occultism_ritualmaster.sealed_pentacle": "五芒星印",
   "item.occultism_ritualmaster.sealed_pentacle.empty": "空",
   "item.occultism_ritualmaster.sealed_pentacle.sealed": "五芒星阵已封印",
+  "item.occultism_ritualmaster.sealed_pentacle_tooltip": "右击黄金仪式之碗，将成型的五芒星阵封印在其中。",
   "itemGroup.occultism_ritualmaster.tab": "神秘学：仪式大师",
   "job.occultism_ritualmaster.ritualmaster": "仪式大师",
   "ritual.occultism_ritualmaster.summon_ritualmaster.conditions": "该仪式的部分条件仍未满足。",

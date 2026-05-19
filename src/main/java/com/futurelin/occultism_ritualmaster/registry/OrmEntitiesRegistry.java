@@ -16,7 +16,7 @@ public class OrmEntitiesRegistry {
 
     public static final Supplier<EntityType<RitualmasterEntity>> RITUALMASTER = ENTITY_TYPES.register("ritualmaster",
             () -> EntityType.Builder.of(RitualmasterEntity::new, MobCategory.CREATURE)
-                    .sized(1.0f, 1.2f)
+                    .sized(0.8f, 1.875f)
                     .clientTrackingRange(8)
                     .build("ritualmaster"));
 

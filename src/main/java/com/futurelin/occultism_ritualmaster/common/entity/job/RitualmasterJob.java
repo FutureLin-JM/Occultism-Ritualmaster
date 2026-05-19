@@ -3,6 +3,7 @@ package com.futurelin.occultism_ritualmaster.common.entity.job;
 import com.futurelin.occultism_ritualmaster.api.item.RitualmasterItemStackHandler;
 import com.futurelin.occultism_ritualmaster.api.mixin.accessor.IRitualRecipeAccessor;
 import com.futurelin.occultism_ritualmaster.common.item.SealedPentacle;
+import com.futurelin.occultism_ritualmaster.config.OrmConfig;
 import com.futurelin.occultism_ritualmaster.registry.OrmDataComponentsRegistry;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
@@ -50,6 +51,9 @@ public class RitualmasterJob extends SpiritJob {
     protected boolean needsSacrifice = false;
     protected boolean itemUseFulfilled = false;
     protected boolean sacrificeFulfilled = false;
+
+    protected double scaleFactor = OrmConfig.SERVER.ritualDurationScaleFactor.get();
+    protected int ritualMinWorkDuration = OrmConfig.SERVER.ritualMinWorkDuration.get();
 
     public Consumer<PlayerInteractEvent.RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
@@ -148,8 +152,8 @@ public class RitualmasterJob extends SpiritJob {
         NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
         NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
 
-        // TODO: Duration（考虑使用配置文件配置工作时间）
-        this.ritualDuration = 20;
+
+        this.ritualDuration = Math.max((ritualMinWorkDuration), (int) (recipe.getDuration() * scaleFactor));
         this.ritualProgress = 0;
 
         this.needsItemUse = recipe.requiresItemUse();
