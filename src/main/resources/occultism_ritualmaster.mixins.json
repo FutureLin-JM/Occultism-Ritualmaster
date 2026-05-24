@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "occultism.GoldenSacrificialBowlBlockEntityMixin",
-    "occultism.RitualRecipeMixin"
+    "occultism.RitualRecipeMixin",
+    "occultism.SpiritComponentProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

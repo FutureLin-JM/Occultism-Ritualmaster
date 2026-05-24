@@ -1,10 +1,8 @@
 package com.futurelin.occultism_ritualmaster.common.entity.job;
 
-import com.futurelin.occultism_ritualmaster.api.item.RitualmasterItemStackHandler;
 import com.futurelin.occultism_ritualmaster.api.mixin.accessor.IRitualRecipeAccessor;
-import com.futurelin.occultism_ritualmaster.common.item.SealedPentacle;
+import com.futurelin.occultism_ritualmaster.common.entity.RitualmasterEntity;
 import com.futurelin.occultism_ritualmaster.config.OrmConfig;
-import com.futurelin.occultism_ritualmaster.registry.OrmDataComponentsRegistry;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -14,7 +12,6 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -40,6 +37,8 @@ import static com.futurelin.occultism_ritualmaster.common.entity.RitualmasterEnt
 
 public class RitualmasterJob extends SpiritJob {
 
+    protected final RitualmasterEntity ritualmasterEntity;
+
     protected PickupItemsGoal pickupItemsGoal;
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
     protected Optional<RitualRecipe> currentRecipe = Optional.empty();
@@ -60,6 +59,7 @@ public class RitualmasterJob extends SpiritJob {
 
     public RitualmasterJob(SpiritEntity entity) {
         super(entity);
+        this.ritualmasterEntity = (RitualmasterEntity) entity;
     }
 
     @Override
@@ -74,56 +74,32 @@ public class RitualmasterJob extends SpiritJob {
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
         this.itemsToPickUp.add(Ingredient.of(OccultismItems.SATCHEL.get()));
-        ((RitualmasterItemStackHandler) this.entity.inventory).setOnInventoryChanged(this::findRecipe);
         this.findRecipe();
     }
 
     @Override
     public void cleanup() {
         this.entity.targetSelector.removeGoal(this.pickupItemsGoal);
-        if (this.entity.inventory instanceof RitualmasterItemStackHandler handler) {
-            handler.setOnInventoryChanged(null);
-        }
         if (this.rightClickItemListener != null) {
             NeoForge.EVENT_BUS.unregister(this.rightClickItemListener);
         }
         if (this.livingDeathEventListener != null) {
             NeoForge.EVENT_BUS.unregister(this.livingDeathEventListener);
         }
-    }
-
-    private boolean hasSatchel() {
-        return this.entity.inventory.getStackInSlot(0).getItem() instanceof SatchelItem;
-    }
-
-    private List<ResourceLocation> getPentacles() {
-        List<ResourceLocation> result = new ArrayList<>();
-        ItemStack satchelStack = this.entity.inventory.getStackInSlot(0);
-        if (!(satchelStack.getItem() instanceof SatchelItem)) {
-            return result;
-        }
-        var contents = satchelStack.get(DataComponents.CONTAINER);
-        if (contents == null) {
-            return result;
-        }
-        for (ItemStack stack : contents.stream().toList()) {
-            if (stack.getItem() instanceof SealedPentacle) {
-                List<ResourceLocation> pentacleIds = stack.get(OrmDataComponentsRegistry.SEALED_PENTACLE.get());
-                if (pentacleIds != null) {
-                    result.addAll(pentacleIds);
-                }
-            }
-        }
-        return result;
+        this.ritualmasterEntity.setProcessingRecipe(false);
+        this.ritualmasterEntity.setCurrentRecipeName("");
     }
 
     @Override
     public void update() {
-        if (!hasSatchel()) {
+        if (!this.ritualmasterEntity.hasSatchel()) {
             return;
         }
         switch (this.ritualState) {
             case IDLE -> {
+                if (this.entity.level().getGameTime() % 20L == 0L) {
+                    this.findRecipe();
+                }
                 if (this.currentRecipe.isPresent() && checkPentacle(this.currentRecipe.get())) {
                     startRitual();
                 }
@@ -162,6 +138,8 @@ public class RitualmasterJob extends SpiritJob {
         this.sacrificeFulfilled = !this.needsSacrifice;
 
         this.ritualState = RitualState.IN_PROGRESS;
+        this.ritualmasterEntity.setProcessingRecipe(true);
+        this.ritualmasterEntity.setCurrentRecipeName(recipe.getRitualDummy().getHoverName().getString());
     }
 
     private void finishRitual() {
@@ -172,6 +150,8 @@ public class RitualmasterJob extends SpiritJob {
             this.ritualState = RitualState.IDLE;
             this.ritualProgress = 0;
             this.ritualDuration = 0;
+            this.ritualmasterEntity.setProcessingRecipe(false);
+            this.ritualmasterEntity.setCurrentRecipeName("");
             return;
         }
 
@@ -188,6 +168,8 @@ public class RitualmasterJob extends SpiritJob {
         this.currentRecipe = Optional.empty();
         this.currentRecipeId = Optional.empty();
         this.ritualState = RitualState.IDLE;
+        this.ritualmasterEntity.setProcessingRecipe(false);
+        this.ritualmasterEntity.setCurrentRecipeName("");
     }
 
     private void unregisterListeners() {
@@ -247,7 +229,7 @@ public class RitualmasterJob extends SpiritJob {
     }
 
     public void findRecipe() {
-        if (!hasSatchel() || this.ritualState == RitualState.IN_PROGRESS) {
+        if (!this.ritualmasterEntity.hasSatchel() || this.ritualState == RitualState.IN_PROGRESS) {
             return;
         }
         this.currentRecipe = Optional.empty();
@@ -264,7 +246,7 @@ public class RitualmasterJob extends SpiritJob {
     }
 
     public boolean checkPentacle(RitualRecipe recipe) {
-        return getPentacles().contains(recipe.getPentacleId());
+        return this.ritualmasterEntity.getPentacles().contains(recipe.getPentacleId());
     }
 
     @Override
@@ -321,6 +303,14 @@ public class RitualmasterJob extends SpiritJob {
                 this.ritualState = RitualState.IDLE;
             }
         }
+
+        if (this.ritualState == RitualState.IN_PROGRESS && this.currentRecipe.isPresent()) {
+            this.ritualmasterEntity.setProcessingRecipe(true);
+            this.ritualmasterEntity.setCurrentRecipeName(this.currentRecipe.get().getRitualDummy().getHoverName().getString());
+        } else {
+            this.ritualmasterEntity.setProcessingRecipe(false);
+            this.ritualmasterEntity.setCurrentRecipeName("");
+        }
     }
 
     @Override
@@ -333,7 +323,7 @@ public class RitualmasterJob extends SpiritJob {
         if (stack.isEmpty()) {
             return false;
         }
-        if (!hasSatchel()) {
+        if (!this.ritualmasterEntity.hasSatchel()) {
             return stack.getItem() instanceof SatchelItem;
         }
         return this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));

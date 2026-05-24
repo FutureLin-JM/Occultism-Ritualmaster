@@ -15,7 +15,6 @@ public class RitualmasterItemStackHandler extends ItemStackHandler {
     private final String dropTag;
     private boolean shifting;
     private boolean inShiftForward;
-    private Runnable onInventoryChanged;
 
     public RitualmasterItemStackHandler(int size, String dropTag) {
         super(size);
@@ -24,10 +23,6 @@ public class RitualmasterItemStackHandler extends ItemStackHandler {
 
     public void setEntity(RitualmasterEntity entity) {
         this.entity = entity;
-    }
-
-    public void setOnInventoryChanged(Runnable callback) {
-        this.onInventoryChanged = callback;
     }
 
     @Override
@@ -58,12 +53,6 @@ public class RitualmasterItemStackHandler extends ItemStackHandler {
         if (entity == null) {
             return;
         }
-        if (slot == 0) {
-            if (!entity.level().isClientSide && this.onInventoryChanged != null) {
-                this.onInventoryChanged.run();
-            }
-            return;
-        }
         if (this.inShiftForward) {
             return;
         }
@@ -73,10 +62,13 @@ public class RitualmasterItemStackHandler extends ItemStackHandler {
             if (!level.isClientSide) {
                 shiftForward();
             }
-            return;
         }
-        if (!entity.level().isClientSide && this.onInventoryChanged != null) {
-            this.onInventoryChanged.run();
+        if (!entity.level().isClientSide && slot == 0) {
+            entity.level().sendBlockUpdated(
+                    entity.blockPosition(),
+                    entity.level().getBlockState(entity.blockPosition()),
+                    entity.level().getBlockState(entity.blockPosition()),
+                    3);
         }
     }
 
@@ -95,10 +87,6 @@ public class RitualmasterItemStackHandler extends ItemStackHandler {
             this.stacks.set(i, ItemStack.EMPTY);
         }
         this.inShiftForward = false;
-
-        if (!entity.level().isClientSide && this.onInventoryChanged != null) {
-            this.onInventoryChanged.run();
-        }
     }
 
     private void dropItem(ItemStack stack) {

@@ -99,6 +99,9 @@ dependencies {
 
     // Ars Ocultas
     implementation ("curse.maven:ars-ocultas-907843:8006990")
+
+    // Jade
+    implementation ("curse.maven:jade-324717:7545219")
 }
 
 base {

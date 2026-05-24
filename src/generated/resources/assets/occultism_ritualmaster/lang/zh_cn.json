@@ -7,9 +7,12 @@
   "item.occultism_ritualmaster.sealed_pentacle.sealed": "五芒星阵已封印",
   "item.occultism_ritualmaster.sealed_pentacle_tooltip": "右击黄金仪式之碗，将成型的五芒星阵封印在其中。",
   "itemGroup.occultism_ritualmaster.tab": "神秘学：仪式大师",
+  "jade.occultism_ritualmaster.no_pentacle_found": "未发现五芒星阵",
+  "jade.occultism_ritualmaster.pentacle_found": "已发现的五芒星阵：",
+  "jade.occultism_ritualmaster.shift_tooltip": "按住 [§lShift§r] 查看可用五芒星阵",
   "job.occultism_ritualmaster.ritualmaster": "仪式大师",
   "ritual.occultism_ritualmaster.summon_ritualmaster.conditions": "该仪式的部分条件仍未满足。",
-  "ritual.occultism_ritualmaster.summon_ritualmaster.finished": "仪式中断：召唤仪式大师.",
-  "ritual.occultism_ritualmaster.summon_ritualmaster.interrupted": "开始进行仪式：召唤仪式大师.",
-  "ritual.occultism_ritualmaster.summon_ritualmaster.started": "仪式成功完成：召唤仪式大师."
+  "ritual.occultism_ritualmaster.summon_ritualmaster.finished": "仪式中断：召唤仪式大师。",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.interrupted": "开始进行仪式：召唤仪式大师。",
+  "ritual.occultism_ritualmaster.summon_ritualmaster.started": "仪式成功完成：召唤仪式大师。"
 }

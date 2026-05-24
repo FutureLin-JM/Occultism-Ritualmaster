@@ -90,14 +90,22 @@ config="${mod_id}.mixins.json"
     modId="occultism"
     type="required"
     versionRange="[1.81.0,)"
-    ordering="AFTER"
+    ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "ars_nouveau"
+    type = "optional"
+    versionRange = "[5.3,6)"
+    ordering="NONE"
+    side="BOTH"
+
 
 [[dependencies.${mod_id}]]
     modId="ars_ocultas"
     type="optional"
     versionRange="[2.1.0,)"
-    ordering="AFTER"
+    ordering="NONE"
     side="BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

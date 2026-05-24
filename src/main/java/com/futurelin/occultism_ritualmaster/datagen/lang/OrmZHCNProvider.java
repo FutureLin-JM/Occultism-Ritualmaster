@@ -26,6 +26,10 @@ public class OrmZHCNProvider extends OrmLangProvider {
         this.add(TranslationKeys.SEALED_PENTACLE_EMPTY, "空");
         this.add(TranslationKeys.SEALED_PENTACLE_TOOLTIP, "右击黄金仪式之碗，将成型的五芒星阵封印在其中。");
         this.add(TranslationKeys.SEALED_PENTACLE_SEALED, "五芒星阵已封印");
+
+        this.add(TranslationKeys.JADE_SHIFT_TOOLTIP, "按住 [§lShift§r] 查看可用五芒星阵");
+        this.add(TranslationKeys.JADE_PENTACLE_FOUND, "已发现的五芒星阵：");
+        this.add(TranslationKeys.JADE_NO_PENTACLE_FOUND, "未发现五芒星阵");
     }
 
     @Override
@@ -33,8 +37,8 @@ public class OrmZHCNProvider extends OrmLangProvider {
         this.add(dummy.get(), "仪式：" + name);
         this.addTooltip(dummy.get(), description);
         this.addRitualMessage(dummy, "conditions", "该仪式的部分条件仍未满足。");
-        this.addRitualMessage(dummy, "started", "仪式成功完成：" + name +".");
-        this.addRitualMessage(dummy, "finished", "仪式中断：" + name +".");
-        this.addRitualMessage(dummy, "interrupted", "开始进行仪式：" + name +".");
+        this.addRitualMessage(dummy, "started", "仪式成功完成：" + name +"。");
+        this.addRitualMessage(dummy, "finished", "仪式中断：" + name +"。");
+        this.addRitualMessage(dummy, "interrupted", "开始进行仪式：" + name +"。");
     }
 }
